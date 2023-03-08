@@ -10,7 +10,98 @@ if (!isset($_SESSION['userInfo']) && $_SESSION['userInfo']['role'] !== "FRESPOND
     header("location: ../../login.php");
 }
 
-// debug($_SESSION['userInfo']['name']);
+if($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // debug($_POST);
+    if(isset($_POST, $_POST['injuries'], $_POST['condition'], $_POST['desc'])){
+        $condition = $_POST['condition'];
+        $injuries = $_POST['injuries'];
+        $desc = validate($_POST['desc']);
+        $lastId = "";
+        // echo $condition. " ". $desc; exit;
+        /* if(isset($_FILES['image'])){
+            $dir = "/uploads/";
+            if(!is_dir($dir)){
+                mkdir($dir);
+            }
+            $target_file = $dir . basename($_FILES["image"]["name"]);
+            $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+            // echo $target_file. " ". $imageFileType; exit;
+            if($imageFileType!= "jpg" && $imageFileType!= "png" && $imageFileType!= "gif" && $imageFileType!= "jpeg"){
+                $_SESSION['error'] = "[400] File type not allowed!";
+                header("location: add-details.php");
+                exit;
+            }
+            // echo $_FILES['image']['tmp_name']. " //". $target_file; 
+            // move_uploaded_file($_FILES["image"]["tmp_name"], $target_file);
+            // echo "uploaded"; exit;
+            if(!move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)){
+                $_SESSION['error'] = "[400] File not uploaded!";
+                header("location: add-details.php");
+                exit;
+            }
+
+            $stmt = $conn->prepare("INSERT INTO patient_injuries_desc(description, condition, image) VALUES(:desc, :condition, :image)");
+            try {
+                $stmt->execute(array(
+                    ":desc" => $desc,
+                    ":condition" => $condition,
+                    ":image" => $target_file
+                ));
+                $lastId = $conn->lastInsertId();
+                debug($lastId);
+            } catch (PDOException $e) {
+                //throw $th;
+                $_SESSION['error'] = "Error Occured!";
+                header("location: add-details.php");
+                exit;
+            }
+        } */
+        $sql = "INSERT INTO patient_injuries_desc(description, status) VALUES(:description, :status)";
+        $stmt = $conn->prepare($sql);
+            try {
+                $stmt->execute(array(
+                    "description" => "$desc",
+                    "status" => "$condition",
+                ));
+                $lastId = $conn->lastInsertId();
+                // debug($lastId);
+            } catch (PDOException $e) {
+                //throw $th;
+                $_SESSION['error'] = "Error Occured while seeding Database!";
+                header("location: add-details.php");
+                exit;
+            }
+        
+        $sql = "INSERT into patient_injuries(injury_id, desc_id) VALUES(:injuryId, :descId)";
+        $stmt = $conn->prepare($sql);
+        
+        try {
+            //code...
+            foreach($injuries as $injury){
+                $stmt->execute(array(
+                    ":injuryId" => $injury,
+                    ":descId" => $lastId
+                ));
+            }
+            $_SESSION['success'] = "Details added Successfully!";
+            header('location: add-details.php');
+            exit;
+        } catch (PDOException $e) {
+            //throw $th;
+            $_SESSION['error'] = "Error Occured while seeding Database!";
+            header("location: add-details.php");
+            exit;
+        }
+
+        
+
+    }
+    else{
+        $_SESSION['error'] = "Please fill in the details!";
+        header("location: add-details.php");
+        exit;
+    }
+}
 ?>
 
 <html>
@@ -27,8 +118,30 @@ if (!isset($_SESSION['userInfo']) && $_SESSION['userInfo']['role'] !== "FRESPOND
     <div class="area">
         <div class="content">
             <h2>Add Details</h2>
-            <form action="add-details.php" method="post">
-                
+            <?=flashMessages()?>
+            <form action="add-details.php" method="post" enctype="multipart/form-data">
+                <label for="injury">Injury Type</label><br>
+                <?php 
+                    $result = $conn->query("SELECT * from injuries");
+                    $rows = $result->fetchAll(); 
+                    foreach($rows as $row){
+                        ?>
+                            <input type="checkbox" name="injuries[]" value="<?=$row['id']?>"> <?=$row['title']?> <br>
+                        <?php
+                    }
+                ?>
+                <br>
+                <label for="condition">Condition</label><br>
+                <input type="radio" name="condition" id="condition" value="dead">Dead 
+                <input type="radio" name="condition" id="condition" value="unconcious">Unconcious 
+                <input type="radio" name="condition" id="condition" value="concious">Concious 
+                <br>
+                <br>
+                <textarea name="desc" id="desc" cols="60" rows="10" placeholder="Comments" required></textarea>
+                <br><br>
+                Image: <input type="file" name="image">
+                <br><br>
+                <input type="submit" value="Add">
             </form>
         </div>
     </div>

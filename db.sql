@@ -20,11 +20,21 @@ create table injuries(
     updated_at timestamp
 );
 
+create table patient_injuries_desc(
+    id bigint(20) unsigned NOT NULL auto_increment,
+    description longtext,
+    condition varchar(255) NOT NULL,
+    image varchar(2000),
+    created_at timestamp DEFAULT current_timestamp,
+    updated_at timestamp
+);
+
 create table patient_injuries(
     id bigint(20) unsigned NOT NULL auto_increment,
-    description varchar(255),
-    patient_id bigint(20) unsigned NOT NULL,
     injury_id bigint(20) unsigned NOT NULL,
+    desc_id bigint(20) unsigned NOT NULL,
+    FOREING KEY(desc_id) REFERENCES patient_injuries_desc(id),
+    FOREING KEY(injury_id) REFERENCES injuries(id),
     created_at timestamp DEFAULT current_timestamp,
     updated_at timestamp
 );
