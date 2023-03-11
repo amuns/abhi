@@ -31,7 +31,7 @@ try {
     echo $conn->errorInfo();
 } */
 
-$stmt = $conn->prepare("INSERT INTO patient_injuries_desc(description, status) VALUES(:desc, :status)");
+/* $stmt = $conn->prepare("INSERT INTO patient_injuries_desc(description, status) VALUES(:desc, :status)");
 
  try {
     $stmt->execute(array(
@@ -41,5 +41,5 @@ $stmt = $conn->prepare("INSERT INTO patient_injuries_desc(description, status) V
 } catch (Exception $th) {
     echo $th;
     echo $conn->errorInfo();
-}
+} */
 ?>

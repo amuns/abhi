@@ -11,6 +11,15 @@ if (!isset($_SESSION['userInfo']) && $_SESSION['userInfo']['role'] !== "FRESPOND
 }
 
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
+    /* $dir = "../uploads";
+            if(!is_dir($dir)){
+                echo "in";
+                mkdir($dir, 0777, true);
+            } else{
+                echo "not done!";
+            }
+    echo basename($_FILES['image']['name']);
+    debug($_FILES['image']); */
     // debug($_POST);
     if(isset($_POST, $_POST['injuries'], $_POST['condition'], $_POST['desc'])){
         $condition = $_POST['condition'];
@@ -18,8 +27,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
         $desc = validate($_POST['desc']);
         $lastId = "";
         // echo $condition. " ". $desc; exit;
-        /* if(isset($_FILES['image'])){
-            $dir = "/uploads/";
+        if(isset($_FILES['image'])){
+            $dir = "../uploads";
             if(!is_dir($dir)){
                 mkdir($dir);
             }
@@ -40,37 +49,23 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
                 exit;
             }
 
-            $stmt = $conn->prepare("INSERT INTO patient_injuries_desc(description, condition, image) VALUES(:desc, :condition, :image)");
+            $stmt = $conn->prepare("INSERT INTO patient_injuries_desc(description, status, image) VALUES(:desc, :status, :image)");
             try {
                 $stmt->execute(array(
                     ":desc" => $desc,
-                    ":condition" => $condition,
-                    ":image" => $target_file
-                ));
-                $lastId = $conn->lastInsertId();
-                debug($lastId);
-            } catch (PDOException $e) {
-                //throw $th;
-                $_SESSION['error'] = "Error Occured!";
-                header("location: add-details.php");
-                exit;
-            }
-        } */
-        $sql = "INSERT INTO patient_injuries_desc(description, status) VALUES(:description, :status)";
-        $stmt = $conn->prepare($sql);
-            try {
-                $stmt->execute(array(
-                    "description" => "$desc",
-                    "status" => "$condition",
+                    ":status" => $condition,
+                    ":image" => $_FILES['image']['name']
                 ));
                 $lastId = $conn->lastInsertId();
                 // debug($lastId);
             } catch (PDOException $e) {
                 //throw $th;
-                $_SESSION['error'] = "Error Occured while seeding Database!";
+                $_SESSION['error'] = $e; //"Error Occured!";
                 header("location: add-details.php");
                 exit;
             }
+        }
+        
         
         $sql = "INSERT into patient_injuries(injury_id, desc_id) VALUES(:injuryId, :descId)";
         $stmt = $conn->prepare($sql);
