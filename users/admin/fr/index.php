@@ -1,5 +1,9 @@
 <?php
 session_start();
+
+require "../pdo.php";
+require "../utils.php";
+
 if (!isset($_SESSION['userInfo']) || $_SESSION['userInfo']['role'] !== "ADMIN") {
     $_SESSION['error'] = "[403] Access Denied!";
     unset($_SESSION['userInfo']);

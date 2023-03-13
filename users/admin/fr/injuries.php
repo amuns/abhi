@@ -10,35 +10,34 @@ if (!isset($_SESSION['userInfo']) || $_SESSION['userInfo']['role'] !== "ADMIN") 
     header("location: ../../../login.php");
 }
 
-if($_SERVER['REQUEST_METHOD'] == 'POST'){
-    if(isset($_POST, $_POST['title'])){
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (isset($_POST, $_POST['title'])) {
         $title = validate($_POST['title']);
 
-        $stmt=$conn->prepare("INSERT INTO injuries(title) VALUES(:title)");
-        
-        try{
-            $stmt->execute(array(':title'=>$title));
+        $stmt = $conn->prepare("INSERT INTO injuries(title) VALUES(:title)");
+
+        try {
+            $stmt->execute(array(':title' => $title));
             $_SESSION['success'] = "Injury was successfully added!";
             header("location: injuries.php");
             exit;
-        } catch(PDOException $e){
+        } catch (PDOException $e) {
             $_SESSION['error'] = "Invalid Request";
             header("location: injuries.php");
             exit;
         }
-
     }
 
-    if(isset($_POST, $_POST['id'], $_POST['delete'])){
+    if (isset($_POST, $_POST['id'], $_POST['delete'])) {
         $id = $_POST['id'];
-        $stmt=$conn->prepare("DELETE FROM injuries WHERE id=:id");
-        
-        try{
-            $stmt->execute(array(':id'=>$id));
+        $stmt = $conn->prepare("DELETE FROM injuries WHERE id=:id");
+
+        try {
+            $stmt->execute(array(':id' => $id));
             $_SESSION['error'] = "Injury was successfully deleted!";
             header("location: injuries.php");
             exit;
-        } catch(PDOException $e){
+        } catch (PDOException $e) {
             $_SESSION['error'] = "Invalid Request";
             header("location: injuries.php");
             exit;
@@ -54,19 +53,29 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>First Responder CRUD</title>
     <style>
-        .container{
+        .container {
             width: 80%;
-            position: absolute;;
+            position: absolute;
+            ;
             top: 10;
             left: 12%;
         }
+      li.actionsList {
+        display: inline-block;
+        width: 55px;
+        font-size: 20px;
+        color: #eeeeee;
+        position: relative;
+        left: -1.3rem;
+        top: 1rem;
+      }
     </style>
     <link rel="stylesheet" type="text/css" href="../style.css">
     <link rel="stylesheet" href="navbar.css">
 </head>
 
 <body>
-    <?=include "../navbar.php"?>
+    <?= include "../navbar.php" ?>
 
     <div class="container">
         <div class="tab">
@@ -75,7 +84,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         </div>
         <div>
             <h2>Add Injury</h2>
-            <?=flashMessages();?>
+            <?= flashMessages(); ?>
             <form action="injuries.php" method="post">
                 <input type="text" id="title" name="title" placeholder="Title">
                 <br><br>
@@ -91,31 +100,43 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                     <th>Action</th>
                 </tr>
                 <?php
-                    $result = $conn->query("SELECT * from injuries ORDER BY id DESC");
-                    if($result->rowCount() > 0){
-                        while($row = $result->fetch(PDO::FETCH_ASSOC)) {
-                            echo "<tr>";
-                            echo "<td>$row[id]</td><td>$row[title]</td>";
-                            ?>
-                                <td>
+                $result = $conn->query("SELECT * from injuries ORDER BY id DESC");
+                if ($result->rowCount() > 0) {
+                    while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+                        echo "<tr>";
+                        echo "<td>$row[id]</td><td>$row[title]</td>";
+                ?>
+                        <td>
+                            <ul>
+                                <li class="actionsList">
+                                    <form action="editinjuries.php" method="post">
+                                        <input type="hidden" name="id" value="<?= $row['id'] ?>">
+                                        <input type="hidden" name="title" value="<?= $row['title'] ?>">
+                                        <input type="submit" name="editKey" value="Edit">
+                                    </form>
+                                </li>
+                                <li class="actionsList">
                                     <form action="injuries.php" method="post">
-                                        <input type="hidden" name="id" value="<?=$row['id']?>">
+                                        <input type="hidden" name="id" value="<?= $row['id'] ?>">
                                         <input type="submit" name="delete" value="Delete">
                                     </form>
-                                </td>
-                            <?php
-                            echo "</tr>";
-                        }
+                                </li>
+                            </ul>
+
+
+                        </td>
+                <?php
+                        echo "</tr>";
                     }
-                    else{
-                        echo "<tr><td colspan=\"2\">No Records Found.</td></tr>";
-                    }
+                } else {
+                    echo "<tr><td colspan=\"2\">No Records Found.</td></tr>";
+                }
                 ?>
             </table>
         </div>
     </div>
 
-    
+
 </body>
 
 </html>

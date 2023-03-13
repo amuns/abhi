@@ -29,7 +29,7 @@ if (!isset($_SESSION['userInfo']) || $_SESSION['userInfo']['role'] !== "FRESPOND
 
         <div class="content">
             <h2>Welcome! <?= $_SESSION['userInfo']['name'] ?></h2>
-            <br><br>
+            
             <h3>Your Listings</h3>
             <!-- <img src="../uploads/1.png"> -->
             <table border="1">
@@ -43,7 +43,26 @@ if (!isset($_SESSION['userInfo']) || $_SESSION['userInfo']['role'] !== "FRESPOND
                 </tr>
 
                 <?php
+                $results_per_page  = 3;
+
                 $result = $conn->query("SELECT * from patient_injuries_desc");
+
+                $number_of_results  = $result->rowCount();
+
+                $number_of_page = ceil($number_of_results/$results_per_page);
+
+                if (!isset ($_GET['page']) ) {  
+                    $page = 1;  
+                } else {  
+                    $page = $_GET['page'];  
+                } 
+
+                $page_first_result = ($page-1) * $results_per_page;  
+
+                $query = "SELECT *FROM patient_injuries_desc LIMIT " . $page_first_result . ',' . $results_per_page; 
+                
+                $result = $conn->query($query);
+
                 $rows = $result->fetchAll(PDO::FETCH_ASSOC);
                 // debug($rows);
                 foreach ($rows as $row) {
@@ -77,9 +96,18 @@ if (!isset($_SESSION['userInfo']) || $_SESSION['userInfo']['role'] !== "FRESPOND
                     echo "</td>";
                         ?>
                     <td><img src="<?='../uploads/'.$row['image']?>" alt="No Image Found." width="200px"></td>
+                    <td>
+                        <form action="editDetails.php" method="post" enctype="multipart/form-data">
+                            
+                            <input type="submit" value="Edit">
+                        </form>
+                    </td>
                 <?php
                     echo "</tr>";
                 }
+                for($page = 1; $page<= $number_of_page; $page++) {  
+                    echo '<a href = "index.php?page=' . $page . '">' . $page . ' </a>';  
+                }  
                 ?>
             </table>
         </div>
