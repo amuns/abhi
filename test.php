@@ -15,9 +15,9 @@ try {
 } catch (Exception $th) {
     echo $th;
     echo $conn->errorInfo();
-} */
+} 
 
-/* $stmt = $conn->prepare("INSERT INTO users(email, name, password, role) VALUES(:email, :name, :password, :role)");
+ $stmt = $conn->prepare("INSERT INTO users(email, name, password, role) VALUES(:email, :name, :password, :role)");
 
 try {
     $stmt->execute(array(
