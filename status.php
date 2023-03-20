@@ -20,6 +20,7 @@ if (isset($_SESSION['status']) && !empty($_SESSION['status'])) {
             exit;
         } else {
             echo "Error: " . $sql . "<br>" . $conn->errorInfo();
+            echo "done";
         }
     }
 }
