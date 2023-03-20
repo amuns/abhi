@@ -25,10 +25,7 @@ require "pdo.php";
 
                 <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
                     <form method="POST" action="register-process.php">
-                        <input type="hidden" name="fid" value="<?= $_GET['fid'] ?? 0 ?>">
-                        <?php
-                        @$_SESSION['fid'] = $_GET['fid'];
-                        ?>
+                        
                         <div class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
                             <p class="lead fw-normal mb-0 me-3">Register</p>
 
