@@ -1,7 +1,7 @@
 <?php
 @session_start();
-require "utils.php";
-require "pdo.php";
+require "./utils.php";
+require "./pdo.php";
 
 
 ?>
