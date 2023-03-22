@@ -13,7 +13,7 @@
 
    
     if($_SERVER['REQUEST_METHOD'] == "POST"){
-        if(isset($_POST, $_POST['fname'], $_POST['lname'], $_POST['age'], $_POST['address'], $_POST['email'], $_SESSION['lastInsertId'])){
+        if(isset($_POST, $_POST['fname'], $_POST['lname'], $_POST['age'], $_POST['address'], $_POST['email'])){
             $fname = validate($_POST['fname']);
             $lname = validate($_POST['lname']);
             $age = validate($_POST['age']);
@@ -22,15 +22,20 @@
             $pass = validate($_POST['password']);
             $id = $_SESSION['lastInsertId'];
             try{
-                $stmt=$conn->prepare("UPDATE patient_details SET fname=:fname, lname=:lname, age=:age, address=:addr, email=:email WHERE id=:id");
+                $stmt=$conn->prepare("INSERT into patient_details (fname, lname, age, address, email) VALUES(:fname, :lname, :age, :addr, :email)");
                 $stmt->execute([
                     "fname"=>$fname, 
                     "lname"=>$lname, 
                     "age"=>$age,
                     "addr"=>$addr,
                     "email"=>$email,
-                    "id"=>$id
                 ]);
+
+                $stmt=$conn->query("SELECT LAST_INSERT_ID() as id FROM fingerprint");
+                $fingerprint_id = $stmt->fetch();
+                $stmt=$conn->query("SELECT LAST_INSERT_ID() as id FROM patient_details");
+                $pid = $stmt->fetch();
+                $stmt = $conn->prepare("UPDATE fingerprint SET pid=$pid WHERE fid=$fingerprint_id");
                 $_SESSION['success'] = "Your data has been registered successfully!";
                 header("location: login.php");
                 exit;

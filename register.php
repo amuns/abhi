@@ -60,7 +60,7 @@ require "./pdo.php";
                             </div>
 
                             <div class="text-center text-lg-start mt-4 pt-2">
-                                <button type="submit" class="btn btn-primary btn-lg" onclick="location.href='./register-process.php'" style="padding-left: 2.5rem; padding-right: 2.5rem;">Enroll Fingerprint</button>
+                                <button type="submit" class="btn btn-primary btn-lg" onclick="location.href='./enroll.php'" style="padding-left: 2.5rem; padding-right: 2.5rem;">Enroll Fingerprint</button>
 
                                 <!-- <p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <a href="#!" class="link-danger">Register</a></p> -->
                             </div>
