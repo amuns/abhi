@@ -3,9 +3,8 @@
 #include <WiFi.h>
 #include <HTTPClient.h>
 
-const char* ssid = "prasaiwifi2g";
-const char* password = "Samumeri54321@";
-
+const char *ssid = "prasaiwifi2g";
+const char *password = "Samumeri54321@";
 
 HardwareSerial serialPort(2); // use UART2
 
@@ -17,9 +16,10 @@ uint8_t getFingerprintEnroll();
 void setup()
 {
   Serial.begin(57600);
-    // Connect to Wi-Fi
+  // Connect to Wi-Fi
   WiFi.begin(ssid, password);
-  while (WiFi.status() != WL_CONNECTED) {
+  while (WiFi.status() != WL_CONNECTED)
+  {
     delay(1000);
     Serial.println("Connecting to WiFi...");
   }
@@ -240,15 +240,17 @@ uint8_t getFingerprintEnroll()
     HTTPClient http;
     http.begin("http://192.168.101.4/abhi/esptest.php");
     int httpResponseCode = http.GET();
-    if (httpResponseCode == 200) {
+    if (httpResponseCode == 200)
+    {
       String payload = http.getString();
       Serial.println(payload);
-    } else {
+    }
+    else
+    {
       Serial.print("HTTP request failed with error code ");
       Serial.println(httpResponseCode);
     }
     http.end();
-    
   }
   else if (p == FINGERPRINT_PACKETRECIEVEERR)
   {
