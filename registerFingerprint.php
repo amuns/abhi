@@ -5,10 +5,7 @@
     require "./utils.php";
 
 
-    $stmt = $conn->prepare("UPDATE status SET status =:status");
-    $stmt->execute([
-        "status" => 0,
-    ]);
+
 
     $fid = $_GET['fid'];
 
@@ -22,7 +19,9 @@
         'id' => $fid,
     ]);
 
-    $_SESSION['fingerprint_id'] = $fid;
-    
+    $stmt = $conn->prepare("UPDATE status SET status =:status");
+    $stmt->execute([
+        "status" => 0,
+    ]);
 
 ?>
