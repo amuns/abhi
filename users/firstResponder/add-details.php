@@ -30,7 +30,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
         if(isset($_FILES['image'])){
             $dir = "../uploads";
             if(!is_dir($dir)){
-                mkdir($dir);
+                mkdir($dir, 0777);
             }
             $target_file = $dir . basename($_FILES["image"]["name"]);
             $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));

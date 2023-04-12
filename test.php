@@ -31,6 +31,20 @@ try {
     echo $conn->errorInfo();
 } */
 
+// $stmt = $conn->prepare("INSERT INTO users(email, name, password, role) VALUES(:email, :name, :password, :role)");
+
+// try {
+//     $stmt->execute(array(
+//         "email" => "receptionist@login.com",
+//         "password" => password_hash("recep123", PASSWORD_DEFAULT),
+//         "name" => "Receptionist",
+//         "role" => "RECEPTIONIST"
+//     ));
+// } catch (Exception $th) {
+//     echo $th;
+//     echo $conn->errorInfo();
+// }
+
 /* $stmt = $conn->prepare("INSERT INTO patient_injuries_desc(description, status) VALUES(:desc, :status)");
 
  try {

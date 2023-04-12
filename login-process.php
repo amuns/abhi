@@ -18,7 +18,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $stmt = $conn->prepare("SELECT * from users WHERE email = '$email'");
         $stmt->execute();
         $user = $stmt->fetchAll();
-
         // $hash = password_hash("admin123", PASSWORD_DEFAULT);
         // debug(var_dump($user[0]['role']));
         if (count($user) > 0) {

@@ -11,20 +11,10 @@
 
             </li>
             <li class="has-subnav">
-                <a href="./add-details.php">
+                <a href="./register.php">
                     <i class="fa fa-globe fa-2x"></i>
                     <span class="nav-text">
-                        Add Details
-                    </span>
-                </a>
-
-            </li>
-
-            <li class="has-subnav">
-                <a href="./scan.php">
-                    <i class="fa fa-globe fa-2x"></i>
-                    <span class="nav-text">
-                        Scan Fingerprint
+                        Add Patient Details
                     </span>
                 </a>
 
