@@ -87,24 +87,19 @@ $emptyData = $stmt->fetch();
 
                                 <div class="form-outline mb-4">
                                     <input type="text" name="fname" id="form3Example3" class="form-control form-control-lg" placeholder="Enter your first name" required />
-                                    <label class="form-label" for="form3Example3">First Name</label>
                                 </div>
                                 <div class="form-outline mb-4">
                                     <input type="text" name="lname" id="form3Example3" class="form-control form-control-lg" placeholder="Enter your last name" required />
-                                    <label class="form-label" for="form3Example3">Last Name</label>
                                 </div>
                                 <div class="form-outline mb-4">
                                     <input type="number" name="age" id="form3Example3" class="form-control form-control-lg" placeholder="Enter your age" required />
-                                    <label class="form-label" for="form3Example3">Age</label>
                                 </div>
                                 <div class="form-outline mb-4">
                                     <input type="text" name="address" id="form3Example3" class="form-control form-control-lg" placeholder="Enter your address" required />
-                                    <label class="form-label" for="form3Example3">Address</label>
                                 </div>
                                 <!-- Email input -->
                                 <div class="form-outline mb-4">
                                     <input type="email" name="email" id="form3Example3" class="form-control form-control-lg" placeholder="Enter a valid email address" required />
-                                    <label class="form-label" for="form3Example3">Email address</label>
                                 </div>
 
                                 <div class="form-outline mb-4">

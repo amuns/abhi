@@ -34,14 +34,13 @@
                         <!-- Email input -->
                         <div class="form-outline mb-4">
                             <input type="email" name="email" id="form3Example3" class="form-control form-control-lg" placeholder="Enter a valid email address" />
-                            <label class="form-label" for="form3Example3">Email address</label>
-                        </div>
+                        </div><br>
 
                         <!-- Password input -->
                         <div class="form-outline mb-3">
                             <input type="password" name="password" id="form3Example4" class="form-control form-control-lg" placeholder="Enter password"/>
-                            <label class="form-label" for="form3Example4">Password</label>
-                        </div>
+                        </div><br>
+
 
                         <div class="form-outline mb-3">
                             <select name="role" required>
@@ -73,30 +72,7 @@
                 </div>
             </div>
         </div>
-        <div class="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-primary">
-            <!-- Copyright -->
-            <!-- <div class="text-white mb-3 mb-md-0">
-                Copyright © 2020. All rights reserved.
-            </div> -->
-            <!-- Copyright -->
-
-            <!-- Right -->
-            <!-- <div>
-                <a href="#!" class="text-white me-4">
-                    <i class="fab fa-facebook-f"></i>
-                </a>
-                <a href="#!" class="text-white me-4">
-                    <i class="fab fa-twitter"></i>
-                </a>
-                <a href="#!" class="text-white me-4">
-                    <i class="fab fa-google"></i>
-                </a>
-                <a href="#!" class="text-white">
-                    <i class="fab fa-linkedin-in"></i>
-                </a>
-            </div> -->
-            <!-- Right -->
-        </div>
+       
     </section>
 </body>
 
