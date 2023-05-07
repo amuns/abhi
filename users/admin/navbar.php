@@ -11,7 +11,7 @@
 
             </li>
             <li class="has-subnav">
-                <a href="fr/index.php">
+                <a href="./fr/index.php">
                     <i class="fa fa-globe fa-2x"></i>
                     <span class="nav-text">
                         First Responder

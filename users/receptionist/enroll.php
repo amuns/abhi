@@ -21,15 +21,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./style.css">
 
 </head>
 
 <body>
-    <div class="text-center text-lg-start mt-4 pt-2">
-        <form action="enroll.php" method="POST">
-            <button type="submit" name="enroll" class="btn btn-primary btn-lg" style="padding-left: 2.5rem; padding-right: 2.5rem;">Enroll Fingerprint</button>
-        </form>
+    <?php
+        include "./navbar.php";
+    ?>
+    <div class="area">
+        <div class="content">
+            <h1>Scan Fingerprint</h1>
+            <div class="text-center text-lg-start mt-4 pt-2">
+            <form action="enroll.php" method="POST">
+                <button type="submit" name="enroll" class="btn btn-primary btn-lg" style="padding-left: 2.5rem; padding-right: 2.5rem;">Enroll Fingerprint</button>
+            </form>
+        </div>
+        </div>
     </div>
+
 </body>
 
 </html>

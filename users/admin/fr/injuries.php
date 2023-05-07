@@ -2,7 +2,7 @@
 session_start();
 
 require "../utils.php";
-require "../pdo.php";
+require "./pdo.php";
 
 if (!isset($_SESSION['userInfo']) || $_SESSION['userInfo']['role'] !== "ADMIN") {
     $_SESSION['error'] = "[403] Access Denied!";
@@ -60,82 +60,133 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             top: 10;
             left: 12%;
         }
-      li.actionsList {
-        display: inline-block;
-        width: 55px;
-        font-size: 20px;
-        color: #eeeeee;
-        position: relative;
-        left: -1.3rem;
-        top: 1rem;
-      }
+
+        li.actionsList {
+            display: inline-block;
+            width: 55px;
+            font-size: 20px;
+            color: #eeeeee;
+            position: relative;
+            left: -1.3rem;
+            top: 1rem;
+        }
+
+        td {
+            text-align: center;
+        }
+
+        table {
+            font-family: Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td,
+        th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr th {
+            text-align: center;
+        }
+
+        tr:hover {
+            background-color: #ddd;
+        }
+
+        th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background: rgb(0, 0, 0, 0.6);
+            color: white;
+        }
+
+        input[type="submit"] {
+            background-color: #337ab7;
+            color: white;
+            height: 2.5rem;
+            width: 4rem;
+            border-radius: 6px;
+            border: none;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #286090;
+            cursor: pointer;
+        }
     </style>
     <link rel="stylesheet" type="text/css" href="../style.css">
     <link rel="stylesheet" href="navbar.css">
 </head>
 
 <body>
-    <?= include "../navbar.php" ?>
+    <?= include "./navbar.php" ?>
 
-    <div class="container">
-        <div class="tab">
-            <a href="index.php"><button class="tablinks">Reports</button></a>
-            <a href="injuries.php"><button class="tablinks">Injuries</button></a>
-        </div>
-        <div>
-            <h2>Add Injury</h2>
-            <?= flashMessages(); ?>
-            <form action="injuries.php" method="post">
-                <input type="text" id="title" name="title" placeholder="Title">
-                <br><br>
-                <input type="submit" value="Add">
-            </form> <br><br>
+    <div class="area">
+        <div class="container">
+            <?php include './tab.php' ?>
 
-            <h2>Injuries List</h2>
+            <div>
+                <h2>Add Injury</h2>
+                <?= flashMessages(); ?>
+                <form action="injuries.php" method="post">
+                    <input type="text" id="title" name="title" placeholder="Title" required>
+                    <br><br>
+                    <input type="submit" value="Add">
+                </form> <br><br>
 
-            <table border="1">
-                <tr>
-                    <th>Id</th>
-                    <th>Title</th>
-                    <th>Action</th>
-                </tr>
-                <?php
-                $result = $conn->query("SELECT * from injuries ORDER BY id DESC");
-                if ($result->rowCount() > 0) {
-                    while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-                        echo "<tr>";
-                        echo "<td>$row[id]</td><td>$row[title]</td>";
-                ?>
-                        <td>
-                            <ul>
-                                <li class="actionsList">
-                                    <form action="editinjuries.php" method="post">
-                                        <input type="hidden" name="id" value="<?= $row['id'] ?>">
-                                        <input type="hidden" name="title" value="<?= $row['title'] ?>">
-                                        <input type="submit" name="editKey" value="Edit">
-                                    </form>
-                                </li>
-                                <li class="actionsList">
-                                    <form action="injuries.php" method="post">
-                                        <input type="hidden" name="id" value="<?= $row['id'] ?>">
-                                        <input type="submit" name="delete" value="Delete">
-                                    </form>
-                                </li>
-                            </ul>
+                <h2>Injuries List</h2>
+
+                <table border="1">
+                    <tr>
+                        <th>Id</th>
+                        <th>Title</th>
+                        <th>Action</th>
+                    </tr>
+                    <?php
+                    $result = $conn->query("SELECT * from injuries ORDER BY id DESC");
+                    if ($result->rowCount() > 0) {
+                        while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+                            echo "<tr>";
+                            echo "<td>$row[id]</td><td>$row[title]</td>";
+                    ?>
+                            <td>
+                                <ul>
+                                    <li class="actionsList">
+                                        <form action="editinjuries.php" method="post">
+                                            <input type="hidden" name="id" value="<?= $row['id'] ?>">
+                                            <input type="hidden" name="title" value="<?= $row['title'] ?>">
+                                            <input type="submit" name="editKey" value="Edit">
+                                        </form>
+                                    </li>
+                                    &nbsp;&nbsp;&nbsp;
+                                    <li class="actionsList">
+                                        <form action="injuries.php" method="post">
+                                            <input type="hidden" name="id" value="<?= $row['id'] ?>">
+                                            <input type="submit" name="delete" value="Delete">
+                                        </form>
+                                    </li>
+                                </ul>
 
 
-                        </td>
-                <?php
-                        echo "</tr>";
+                            </td>
+                    <?php
+                            echo "</tr>";
+                        }
+                    } else {
+                        echo "<tr><td colspan=\"3\">No Records Found.</td></tr>";
                     }
-                } else {
-                    echo "<tr><td colspan=\"2\">No Records Found.</td></tr>";
-                }
-                ?>
-            </table>
+                    ?>
+                </table>
+            </div>
         </div>
     </div>
-
 
 </body>
 

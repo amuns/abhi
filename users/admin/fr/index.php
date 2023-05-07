@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-require "../pdo.php";
+require "./pdo.php";
 require "../utils.php";
 
 if (!isset($_SESSION['userInfo']) || $_SESSION['userInfo']['role'] !== "ADMIN") {
@@ -18,9 +18,10 @@ if (!isset($_SESSION['userInfo']) || $_SESSION['userInfo']['role'] !== "ADMIN") 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>First Responder CRUD</title>
     <style>
-        .container{
+        .container {
             width: 80%;
-            position: absolute;;
+            position: absolute;
+            ;
             top: 10;
             left: 12%;
         }
@@ -30,19 +31,17 @@ if (!isset($_SESSION['userInfo']) || $_SESSION['userInfo']['role'] !== "ADMIN") 
 </head>
 
 <body>
-    <?=include "../navbar.php"?>
+    <?= include "./navbar.php" ?>
 
-    <div class="container">
-        <div class="tab">
-            <a href="index.php"><button class="tablinks">Reports</button></a>
-            <a href="injuries.php"><button class="tablinks">Injuries</button></a>
-        </div>
-        <div>
-            <h2>Reports</h2>
+    <div class="area">
+        <div class="container">
+            <?php include './tab.php' ?>
+            <div>
+                <h2>Reports</h2>
+            </div>
         </div>
     </div>
 
-    
 </body>
 
 </html>

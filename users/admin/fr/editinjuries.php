@@ -2,7 +2,7 @@
 session_start();
 
 require "../utils.php";
-require "../pdo.php";
+require "./pdo.php";
 
 if (!isset($_SESSION['userInfo']) || $_SESSION['userInfo']['role'] !== "ADMIN") {
     $_SESSION['error'] = "[403] Access Denied!";
@@ -10,7 +10,7 @@ if (!isset($_SESSION['userInfo']) || $_SESSION['userInfo']['role'] !== "ADMIN") 
     header("location: ../../../login.php");
 }
 
-if(isset($_POST, $_POST['title'], $_POST['updateKey']) && !empty($_POST['title']) && !empty($_POST['id'])){
+if (isset($_POST, $_POST['title'], $_POST['updateKey']) && !empty($_POST['title']) && !empty($_POST['id'])) {
     $id = $_POST['id'];
     $title = validate($_POST['title']);
 
@@ -44,9 +44,28 @@ if(isset($_POST, $_POST['title'], $_POST['updateKey']) && !empty($_POST['title']
         .container {
             width: 80%;
             position: absolute;
-            ;
-            top: 10;
+            top: 10px;
             left: 12%;
+        }
+
+        .back {
+            padding: 0.7rem 0.75rem 0.8rem 0.75rem;
+        }
+
+        input[type="submit"],
+        .back {
+            background-color: #337ab7;
+            color: white;
+            height: 2.5rem;
+            width: 4rem;
+            border-radius: 6px;
+            border: none;
+        }
+
+        input[type="submit"]:hover,
+        .back:hover {
+            background-color: #286090;
+            cursor: pointer;
         }
     </style>
     <link rel="stylesheet" type="text/css" href="../style.css">
@@ -54,31 +73,33 @@ if(isset($_POST, $_POST['title'], $_POST['updateKey']) && !empty($_POST['title']
 </head>
 
 <body>
-    <?= include "../navbar.php" ?>
+    <?= include "./navbar.php" ?>
+    <div>
+        <div class="container">
+            <div class="tab">
+                <a href="index.php"><button class="tablinks">Reports</button></a>
+                <a href="injuries.php"><button class="tablinks">Injuries</button></a>
+            </div>
+            <div>
+                <h2>Edit Injury</h2>
+                <?= flashMessages(); ?>
+                <?php
+                if (isset($_POST, $_POST['editKey'])) {
 
-    <div class="container">
-        <div class="tab">
-            <a href="index.php"><button class="tablinks">Reports</button></a>
-            <a href="injuries.php"><button class="tablinks">Injuries</button></a>
-        </div>
-        <div>
-            <h2>Edit Injury</h2>
-            <?= flashMessages(); ?>
-            <?php
-            if (isset($_POST, $_POST['editKey'])) {
 
+                ?>
+                    <form action="editinjuries.php" method="post">
+                        <input type="hidden" name="id" value="<?= $_POST['id'] ?? '' ?>">
+                        <input type="text" id="title" name="title" placeholder="Title" value="<?= $_POST['title'] ?? '' ?>">
+                        <br><br>
+                        <input type="submit" name="updateKey" value="Update">
+                        <a href="./injuries.php" class="back">Back</a>
+                    </form>
 
-            ?>
-                <form action="editinjuries.php" method="post">
-                    <input type="hidden" name="id" value="<?=$_POST['id']??''?>">
-                    <input type="text" id="title" name="title" placeholder="Title" value="<?=$_POST['title']??''?>">
-                    <br><br>
-                    <input type="submit" name="updateKey" value="Update">
-                    <a href="./injuries.php">Back</a>
-                </form>
-            <?php
-            }
-            ?>
+                <?php
+                }
+                ?>
+            </div>
         </div>
     </div>
 </body>

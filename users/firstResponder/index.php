@@ -61,12 +61,13 @@ if (!isset($_SESSION['userInfo']) || $_SESSION['userInfo']['role'] !== "FRESPOND
     <div class="area">
 
         <div class="content">
+            
             <h2>Welcome! <?= $_SESSION['userInfo']['name'] ?></h2>
 
             <h3>Your Listings</h3>
 
             <form action="index.php">
-                Search: <input type="text" name="search-field">
+                Search: <input type="text" name="search-field" placeholder="Search status">
                 <input type="submit" value="Search">
             </form>
             <!-- <img src="../uploads/1.png"> -->
@@ -155,8 +156,8 @@ if (!isset($_SESSION['userInfo']) || $_SESSION['userInfo']['role'] !== "FRESPOND
                     echo "</tr>";
                 }
                 for ($page = 1; $page <= $number_of_page; $page++) {
-                    if ($_GET['search-field']) {
-                        $search = $_GET['search-field'];
+                    if (@$_GET['search-field']) {
+                        $search = @$_GET['search-field'];
                         echo '<a href = "index.php?search-field=' . $search . '&&page=' . $page . '">' . $page . ' </a>';
                     } else {
                         echo '<a href = "index.php?page=' . $page . '">' . $page . ' </a>';
