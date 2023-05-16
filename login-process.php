@@ -11,7 +11,7 @@ if(!isset($_POST)){
 }
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
-    if (isset($_POST, $_POST['email'], $_POST['password'])) {
+    if (isset($_POST, $_POST['email'], $_POST['password'], $_POST['role'])) {
         $email = validate($_POST['email']);
         $pass = validate($_POST['password']);
 
@@ -20,9 +20,17 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $user = $stmt->fetchAll();
         // $hash = password_hash("admin123", PASSWORD_DEFAULT);
         // debug(var_dump($user[0]['role']));
+
         if (count($user) > 0) {
+
             // debug(!password_verify("admin123", $user[0]['password']));
             if(!password_verify($pass, $user[0]['password'])) {
+                $_SESSION['error'] = "Invalid email or password combination!";
+                header("location: login.php");
+                exit;
+            }
+
+            if($_POST['role'] != $user[0]['role']) {
                 $_SESSION['error'] = "Invalid email or password combination!";
                 header("location: login.php");
                 exit;

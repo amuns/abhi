@@ -1,12 +1,22 @@
-<?php
-include "./verify-block.php";
+<html lang="en">
 
-if (isset($_POST, $_POST['fname'], $_POST['lname'], $_POST['age'], $_POST['address'])) {
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <?php require "./header.php"; ?>
+</head>
+<?php
+if (isset($_POST, $_POST['fname'], $_POST['phone'], $_POST['dob'], $_POST['address'], $_POST['ephone'], $_POST['relation'], $_POST['gender'])) {
     $fname = validate($_POST['fname']);
-    $lname = validate($_POST['lname']);
-    $age = validate($_POST['age']);
+    $phone = validate($_POST['phone']);
+    $dob = validate($_POST['dob']);
     $address = validate($_POST['address']);
     $email = validate($_POST['email']);
+    $ephone = validate($_POST['ephone']);
+    $relation = validate($_POST['relation']);
+    $gender = validate($_POST['gender']);
     $image = "";
 
     if (isset($_FILES['dp'])) { //If block to be commented out if any error occurs
@@ -36,14 +46,17 @@ if (isset($_POST, $_POST['fname'], $_POST['lname'], $_POST['age'], $_POST['addre
     else{
         $image = "defUser.png";
     }
-    $stmt1 = $conn->prepare("UPDATE patient_details SET fname=:fname, lname=:lname, age=:age, address=:addr, email=:email, image=:image WHERE id=" . $_SESSION['id']);
+    $stmt1 = $conn->prepare("UPDATE patient_details SET fname=:fname, phone=:phone, dob=:dob, address=:addr, email=:email, ephone=:ephone, relation=:relation, gender=:gender, dp=:image WHERE id=" . $_SESSION['id']);
     $stmt1->execute([
         'fname' => $fname,
-        'lname' => $lname,
-        'age' => $age,
+        'phone' => $phone,
+        'dob' => $dob,
         'addr' => $address,
         'email' => $email,
-        'image' => $image, //Create an image column in the patient_details table || comment out if error occurs
+        'ephone' => $ephone,
+        'relation' => $relation,
+        'gender' => $gender,
+        'dp' => $image, //Create an image column in the patient_details table || comment out if error occurs
     ]);
     unset($_SESSION['id']);
 }
@@ -52,131 +65,70 @@ $stmt = $conn->prepare("SELECT * from patient_details WHERE fname IS NULL");
 $stmt->execute();
 $rowCount = $stmt->rowCount();
 $emptyData = $stmt->fetch();
-
-
 ?>
-
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../../css/app.css">
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./style.css">
-
-    <title>Receptionist</title>
-
-    <style>
-        .enroll-link:hover{
-            font-size: 18px;
-            font-weight: 600;
-            transition: all 0.23s ease-in-out;
-        }
-    </style>
-</head>
-
 <body>
-<?php
-    include "./navbar.php";
-    ?>
-    <div class="area">
-        <div class="content">
-            <h1>Register Details</h1>
+    <div class="container">
         <?php
-        if ($rowCount > 0) {
-            $_SESSION['id'] = $emptyData['id'];
-            echo "<script>alert('Continue?')</script>";
+        displaySidebar($links);
+        displayDashboard();
+        
         ?>
-
-            <section class="vh-100">
-
-                <div class="container-fluid h-custom">
-                    <div class="row d-flex justify-content-center align-items-center h-100">
-
-                        <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-                            <form method="POST" action="register.php">
-
-                                <div class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
-                                    <p class="lead fw-normal mb-0 me-3">Register</p>
-
-                                    <?= flashMessages(); ?>
-
-                                    <div class="form-outline mb-4">
-                                        <input type="text" name="fname" id="form3Example3" class="form-control form-control-lg" placeholder="Enter your first name" required />
-                                    </div>
-                                    <div class="form-outline mb-4">
-                                        <input type="text" name="lname" id="form3Example3" class="form-control form-control-lg" placeholder="Enter your last name" required />
-                                    </div>
-                                    <div class="form-outline mb-4">
-                                        <input type="number" name="age" id="form3Example3" class="form-control form-control-lg" placeholder="Enter your age" required />
-                                    </div>
-                                    <div class="form-outline mb-4">
-                                        <input type="text" name="address" id="form3Example3" class="form-control form-control-lg" placeholder="Enter your address" required />
-                                    </div>
-                                    <!-- Email input -->
-                                    <div class="form-outline mb-4">
-                                        <input type="email" name="email" id="form3Example3" class="form-control form-control-lg" placeholder="Enter a valid email address" required />
-                                    </div>
-
-                                    <div class="form-outline mb-4">
-                                        <input type="file" name="dp" id="form3Example3" class="form-control form-control-lg"/>
-                                        <label class="form-label" for="form3Example3">Display Picture</label>
-                                    </div>
-                                    <br>
-
-
-                                    <div class="text-center text-lg-start mt-4 pt-2">
-                                        <button type="submit" class="btn btn-primary btn-lg" style="padding-left: 2.5rem; padding-right: 2.5rem;">Register</button>
-                                        <!-- <p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <a href="#!" class="link-danger">Register</a></p> -->
-                                    </div>
-
-                            </form>
-                        </div>
+        <div class="body-section">
+            <?php 
+            if ($rowCount > 0) {
+                $_SESSION['id'] = $emptyData['id'];
+                echo "<script>alert('Continue?')</script>";
+            ?>
+            <div class="register-details">
+                <h3>Patient Form</h3>
+                <form method="POST" action="register.php">
+                    <input type="text" name="fname" placeholder="Full Name">
+                    <input type="text" name="address" placeholder="Address">
+                    <input type="number" name="phone" placeholder="Phone Number">
+                    <input type="email" name="email" placeholder="Email Address">
+                    <div class="two-columns">
+                        <input type="number" name="ephone" placeholder="Emergency Contact Number">
+                        <select name="relation">
+                            <option disabled>--Relation--</option>
+                            <option value="parents">Parents</option>
+                            <option value="spouse">Spouse</option>
+                            <option value="brother">Brother</option>
+                            <option value="sister">Sister</option>
+                        </select>
                     </div>
-                </div>
-                <div class="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-primary">
-                    <!-- Copyright -->
-                    <!-- <div class="text-white mb-3 mb-md-0">
-                    Copyright © 2020. All rights reserved.
-                </div> -->
-                    <!-- Copyright -->
+                    <div class="two-columns">
+                        <select name="gender">
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="others">Others</option>
+                        </select>
+                        
+                        DOB: <input type="date" name="date">
+                    </div>
 
-                    <!-- Right -->
-                    <!-- <div>
-                    <a href="#!" class="text-white me-4">
-                        <i class="fab fa-facebook-f"></i>
-                    </a>
-                    <a href="#!" class="text-white me-4">
-                        <i class="fab fa-twitter"></i>
-                    </a>
-                    <a href="#!" class="text-white me-4">
-                        <i class="fab fa-google"></i>
-                    </a>
-                    <a href="#!" class="text-white">
-                        <i class="fab fa-linkedin-in"></i>
-                    </a>
-                </div> -->
-                    <!-- Right -->
-                </div>
+                    <input class="image-upload" type="file" name="dp">
 
-
-
-            </section>
+                    <button type="submit" class="display-block-center">Create New Patient</button>
+                </form>
+            </div>
+            <?php
+        }
+        else{
+        ?>  
+            <div class="fingerprint-registering">
+                <h3>Fingerprint registering...</h3>
+                <img src="../img/spinner.gif">
+                <p>Kindly refresh the page after few minutes!</p>
+            </div>
         <?php
-        } else {
-        ?>
-            <!-- <a href="./index.php">Home</a><br><br>
-            <a href="./logout.php">Logout</a><br><br> -->
-        <?php
-
-            echo "<a href='enroll.php' class='enroll-link'>Enroll Fingerprint &rarr;</a>";
         }
         ?>
+        </div>
+    
+        <!-- div:dashboard-wrapper closing -->
     </div>
     </div>
+
 </body>
 
 </html>

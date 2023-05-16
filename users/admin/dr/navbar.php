@@ -10,17 +10,16 @@
 
             </li>
             <li class="has-subnav">
-                <a href="./index.php">
+                <a href="../fr/index.php">
                     <i class="fa fa-globe fa-2x"></i>
                     <span class="nav-text">
-                        First Responder
+                        First Responder Portal
                     </span>
                 </a>
 
             </li>
-
             <li class="has-subnav">
-                <a href="../dr/index.php">
+                <a href="./index.php">
                     <i class="fa fa-globe fa-2x"></i>
                     <span class="nav-text">
                         Doctor Portal

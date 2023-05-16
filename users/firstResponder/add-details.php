@@ -8,6 +8,14 @@ require "./pdo.php";
 if (!isset($_SESSION['userInfo']) && $_SESSION['userInfo']['role'] !== "FRESPONDER") {
     $_SESSION['error'] = "[403] Access Denied!";
     header("location: ../../login.php");
+    exit;
+}
+
+$sql = "SHOW COLUMNS from fresponder_from";
+$stmt = $conn->prepare($sql);
+$fieldArr = [];
+if($stmt->rowCount() > 0){
+    $fieldArr = $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -26,6 +34,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
         $injuries = $_POST['injuries'];
         $desc = validate($_POST['desc']);
         $lastId = "";
+        
         // echo $condition. " ". $desc; exit;
         if(isset($_FILES['image'])){
             $dir = "../uploads";
@@ -136,6 +145,12 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <br><br>
                 Image: <input type="file" name="image">
                 <br><br>
+                <?php
+                foreach($fieldArr as $field) :
+                ?>
+                <?=ucwords($field['title'])?> : <input type="<?=$field['type']?>" name="<?=strtolower($field['title'])?>">
+                <?php endforeach;
+                ?>
                 <input type="submit" value="Add">
             </form>
         </div>

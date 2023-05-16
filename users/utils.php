@@ -14,6 +14,11 @@
             unset($_SESSION['success']);
         }
 
+        if(isset($_SESSION['warning']) && !empty($_SESSION['warning'])){
+            echo "<p><span style='color: yellow'>".$_SESSION['warning']."</span></p>";
+            unset($_SESSION['warning']);
+        }
+
         if(isset($_SESSION['error']) && !empty($_SESSION['error'])){
             echo "<p><span style='color: red'>".$_SESSION['error']."</span></p>";
             unset($_SESSION['error']);

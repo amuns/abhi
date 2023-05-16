@@ -10,11 +10,30 @@
                 </a>
 
             </li>
+
             <li class="has-subnav">
                 <a href="./fr/index.php">
                     <i class="fa fa-globe fa-2x"></i>
                     <span class="nav-text">
                         First Responder
+                    </span>
+                </a>
+            </li>
+
+            <li class="has-subnav">
+                <a href="./dr/index.php">
+                    <i class="fa fa-globe fa-2x"></i>
+                    <span class="nav-text">
+                        Doctor
+                    </span>
+                </a>
+            </li>
+
+            <li class="has-subnav">
+                <a href="./rep/index.php">
+                    <i class="fa fa-globe fa-2x"></i>
+                    <span class="nav-text">
+                        Receptionist
                     </span>
                 </a>
 

@@ -26,6 +26,5 @@
         "status" => 0,
     ]);
 
-    header('refresh:20;url=register.php');
 
 ?>

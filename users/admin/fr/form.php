@@ -22,9 +22,9 @@ if (isset($_POST, $_POST['title'], $_POST['type'])) {
 
         $stmt = $conn->prepare("SHOW columns from 'patient_details' LIKE '$title'");
         if($stmt->rowCount() <= 0){
-            $sql = "ALTER TABLE patient_details add column :title varchar(255)";
+            $sql = "ALTER TABLE patient_details add column $title varchar(255)";
             $stmt1 = $conn->prepare($sql);
-            $stmt1->execute(['title'=>$title]);
+            $stmt1->execute();
         }
 
         $_SESSION['success'] = "Field added to from";
@@ -32,6 +32,7 @@ if (isset($_POST, $_POST['title'], $_POST['type'])) {
         exit;
     } catch (Exception $e) {
         $_SESSION['error'] = "Oops! Error occured!";
+        $_SESSION['error'] = $e;
         header('location: form.php');
         exit;
     }
