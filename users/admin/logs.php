@@ -26,6 +26,9 @@ if (!isset($_SESSION['userInfo']) || $_SESSION['userInfo']['role'] !== "ADMIN") 
         displaySidebar($links);
         displayDashboard();
         ?>
+        <div class="body-section">
+            
+        </div>
     </div>
 </body>
 

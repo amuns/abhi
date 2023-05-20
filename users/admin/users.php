@@ -27,7 +27,7 @@ if (!isset($_SESSION['userInfo']) || $_SESSION['userInfo']['role'] !== "ADMIN") 
         displaySidebar($links);
         displayDashboard();
         ?>
-        <div class="recent-listings">
+        <div class="body-section">
             
         </div>
     </div>

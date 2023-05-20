@@ -20,10 +20,6 @@ $links = [
         'link' => 'logs.php',
     ],
 
-    [
-        'title' => 'forms',
-        'link' => 'forms.php',
-    ],
 ];
 ?>
 <link rel="stylesheet" type="text/css" href="../../css/dashboard.css">

@@ -19,6 +19,14 @@ if (isset($_POST, $_POST['fname'], $_POST['phone'], $_POST['dob'], $_POST['addre
     $gender = validate($_POST['gender']);
     $image = "";
 
+    $phone_pattern = "/^9[0-9]{9}$/";
+
+    if(!preg_match($phone_pattern, $phone) || !preg_match($phone_pattern, $ephone)){
+        $_SESSION['error'] = "Invalid contact number!";
+        header('location: register.php');
+        exit;
+    }
+
     if (isset($_FILES['dp'])) { //If block to be commented out if any error occurs
         $dir = "../uploads";
         if (!is_dir($dir)) {
@@ -61,6 +69,11 @@ if (isset($_POST, $_POST['fname'], $_POST['phone'], $_POST['dob'], $_POST['addre
     unset($_SESSION['id']);
 }
 
+if(isset($_POST, $_POST['redirect'])){
+    header("location: register.php");
+    exit;
+}
+
 $stmt = $conn->prepare("SELECT * from patient_details WHERE fname IS NULL");
 $stmt->execute();
 $rowCount = $stmt->rowCount();
@@ -81,6 +94,7 @@ $emptyData = $stmt->fetch();
             ?>
             <div class="register-details">
                 <h3>Patient Form</h3>
+                <?=flashMessages()?>
                 <form method="POST" action="register.php">
                     <input type="text" name="fname" placeholder="Full Name">
                     <input type="text" name="address" placeholder="Address">
@@ -119,6 +133,11 @@ $emptyData = $stmt->fetch();
                 <h3>Fingerprint registering...</h3>
                 <img src="../img/spinner.gif">
                 <p>Kindly refresh the page after few minutes!</p>
+                <form method="POST" action="register.php">
+                    <button class="submit" name="redirect"> 
+                        Reload
+                    </button>
+                </form>
             </div>
         <?php
         }

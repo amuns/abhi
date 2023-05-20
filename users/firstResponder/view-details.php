@@ -12,11 +12,11 @@ $stmt = $conn->query("SELECT fid from retrieve_fingerprint");
 $stmt->execute();
 $fid = $stmt->fetch();
 
-if ($stmt->rowCount() <= 0) {
+/* if ($stmt->rowCount() <= 0) {
     $_SESSION['error'] = 'Fingerprint not found';
     header('location: scan-patient.php');
     exit;
-}
+} */
 ?>
 
 
@@ -43,8 +43,6 @@ if ($stmt->rowCount() <= 0) {
                 $stmt = $conn->query("SELECT * from patient_details WHERE fingerprint_id =" . $fid[0]);
                 $stmt->execute();
                 $patientDetails = $stmt->fetch();
-                // debug($fid[0]);
-                // debug($patientDetails['id']);
 
                 if ($stmt->rowCount() <= 0) {
                     header("location: new-patient.php");
