@@ -80,8 +80,7 @@ button:active {
   margin: 1rem auto;
 }
 
-.scan-fingerprint,
-.view-section {
+.scan-fingerprint {
   margin: 5rem 0 0 0;
   text-align: center;
   color: #353535;
@@ -104,6 +103,7 @@ button:active {
 .dropdown:hover .dropdown-content {
   display: block;
 }
+
 /* First Responder */
 
 .scan-fingerprint h3 {
@@ -121,6 +121,61 @@ button:active {
 
 .scan-fingerprint img {
   margin: 3rem 0 3rem 0;
+}
+
+.patient-form {
+  display: flex;
+  width: 70%;
+  height: 600px;
+  background-color: white;
+  color: #a3a0a1;
+  margin: 0 auto;
+  justify-content: center;
+  padding-top: 4rem;
+}
+
+.patient-form form input, textarea {
+  margin-bottom: 2rem;
+}
+
+.patient-form form input {
+  display: block;
+  margin: 1rem auto;
+  width: 459px;
+  height: 50px;
+  font-weight: 500;
+  font-size: 16px;
+  border-radius: 6px;
+  border: 2px solid #f4f4f5;
+  padding-left: 1rem;
+  color: #a3a0a1;
+}
+
+.patient-form form input:focus {
+  outline: 2px solid #9cb4ce;
+  border: none;
+}
+
+.patient-form form button {
+  width: 100%;
+}
+
+.view-section {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  width: 100%;
+  background-color: white;
+}
+
+.patient-details {
+  padding-left: 1rem;
+  position: relative;
+}
+
+.details {
+  position: fixed;
+  top: 18rem;
+  left: 32rem;
 }
 
 /* Receptionist */

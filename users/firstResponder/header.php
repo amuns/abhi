@@ -24,10 +24,6 @@ $links = [
         'link' => 'scan-patient.php',
     ],
 
-    [
-        'title' => 'new patient',
-        'link' => 'new-patient.php',
-    ],
 
 ];
 ?>

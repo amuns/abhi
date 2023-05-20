@@ -2,15 +2,19 @@
 require "../layouts/sidebar.php" ;
 require "../layouts/dashboard.php" ;
 
+session_start();
+
+if (!isset($_SESSION['userInfo']) || $_SESSION['userInfo']['role'] !== "DOCTOR") {
+    $_SESSION['error'] = "[403] Access Denied!";
+    unset($_SESSION['userInfo']);
+    header("location: ../../login.php");
+    exit;
+}
+
 $links = [
     [
         'title' => 'dashboard',
         'link' => 'index.php',
-    ],
-    
-    [
-        'title' => 'scan patient',
-        'link' => 'scan-patient.php',
     ],
 
 ];

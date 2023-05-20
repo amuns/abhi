@@ -1,11 +1,7 @@
 <?php 
     session_start();
     
-    require "./pdo.php";
-    require "./utils.php";
-
-
-
+    require "../pdo.php";
 
     @$fid = $_GET['fid'];
 

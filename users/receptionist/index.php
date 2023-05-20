@@ -18,6 +18,12 @@ if (isset($_POST, $_POST['search'])) {
 if(isset($_POST, $_POST['doctor_id'], $_POST['patient_id'])){
     $doctorId = $_POST['doctor_id'];
     $patientId = $_POST['patient_id'];
+    $stmt = $conn->prepare("INSERT into appointments(user_id, patient_id, status)");
+    $stmt->execute([
+        'user_id' => $doctorId,
+        'patient_id' => $patientId, 
+        'status' => 'pending'
+    ]);
 }
 ?>
 
@@ -78,7 +84,7 @@ if(isset($_POST, $_POST['doctor_id'], $_POST['patient_id'])){
                                     }
                                 }
                                 else{
-                                    echo "No Doctors";
+                                    echo "No Doctors Available!";
                                 }
                                 ?>
                             </div>

@@ -12,6 +12,9 @@
         <?php
         displaySidebar($links);
         displayDashboard();
+
+        $stmt = $conn->prepare("DELETE from retrieve_fingerprint");
+        $stmt->execute();
         ?>
         <div class="body-section">
             

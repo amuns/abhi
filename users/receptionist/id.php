@@ -1,6 +1,5 @@
 <?php
-    require "./pdo.php";
-    require "./utils.php";
+    require "../pdo.php";
     
 $arr = [];
         for($i = 1; $i <= 127; $i++){
