@@ -81,7 +81,7 @@ if (isset($_POST, $_POST['search'])) {
                     <?php
                         }
                     } else {
-                        echo "no data";
+                        echo "No data found!";
                     }
                     ?>
                 </div>

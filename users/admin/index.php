@@ -1,16 +1,3 @@
-<?php
-session_start();
-
-if (!isset($_SESSION['userInfo']) || $_SESSION['userInfo']['role'] !== "ADMIN") {
-    $_SESSION['error'] = "[403] Access Denied!";
-    unset($_SESSION['userInfo']);
-    header("location: ../../login.php");
-    exit;
-}
-
-
-?>
-
 <html lang="en">
 
 <head>
