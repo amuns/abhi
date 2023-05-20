@@ -29,7 +29,8 @@
                 <?=flashMessages()?>
                 <input type="email" placeholder="Email" name="email" required> 
                 <br>
-                <input type="password" placeholder="Password" name="password" required>
+                <img src="./img/hide-eye-icon.png" class="hide-eye" id="toggle">
+                <input type="password" placeholder="Password" name="password" id="pw" required>
                 <br>
                 <select name="role" required>
                     <option disabled>--Select user type--</option>
@@ -46,6 +47,14 @@
             </div>
         </div>
     </div>
+
+    <script>
+    const pwBtn = document.querySelector('#pw')
+    document.querySelector('#toggle').addEventListener('click', (event) => {
+        pwBtn.type === "password" ? pwBtn.type = "text" : pwBtn.type = "password"
+        console.log("clicked");
+    })
+</script>
 </body>
 
 </html>

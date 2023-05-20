@@ -33,6 +33,7 @@ body {
   padding: 1rem 4rem;
   border: 1px solid rgba(211, 211, 211, 0.2);
   margin-left: -3rem;
+  position: relative;
 }
 
 .logo {
@@ -129,4 +130,10 @@ select option {
   font-size: 14px;
   margin-left: 13rem;
   text-decoration: underline;
+}
+
+.hide-eye {
+  position: absolute;
+  left: 30rem;
+  bottom: 14.3rem;
 }

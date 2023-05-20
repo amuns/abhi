@@ -14,6 +14,11 @@ if (isset($_POST, $_POST['search'])) {
     $s = $_POST['search'];
     $sql = "SELECT * FROM patient_details WHERE fname LIKE '%$s%'";
 }
+
+if(isset($_POST, $_POST['doctor_id'], $_POST['patient_id'])){
+    $doctorId = $_POST['doctor_id'];
+    $patientId = $_POST['patient_id'];
+}
 ?>
 
 <body>
@@ -65,7 +70,8 @@ if (isset($_POST, $_POST['search'])) {
                                     foreach($doctors as $doc){
                                 ?>
                                 <form action="index.php" class="dropdown-form" method="POST">
-                                    <input type='hidden' value="<?=$doc['id']?>">
+                                    <input type='hidden' name="patient_id" value="<?=$patient['id']?>">
+                                    <input type='hidden' name="doctor_id" value="<?=$doc['id']?>">
                                     <button type="submit"><?=$doc['name']?></button>
                                 </form>
                                 <?php

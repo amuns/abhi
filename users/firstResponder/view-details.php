@@ -8,6 +8,11 @@
     <?php require './header.php'; ?>
 </head>
 <?php
+if(isset($_POST, $_POST['redirect'])){
+    header("location: view-details.php");
+    exit;
+}
+
 $stmt = $conn->query("SELECT fid from retrieve_fingerprint");
 $stmt->execute();
 $fid = $stmt->fetch();
@@ -32,9 +37,14 @@ $fid = $stmt->fetch();
             if (!isset($fid[0])) {
             ?>
                 <div class="fingerprint-registering">
-                    <h3>Fingerprint registering...</h3>
+                    <h3>Fetching Details...</h3>
                     <img src="../img/spinner.gif">
                     <p>Kindly refresh the page after few minutes!</p>
+                    <form method="POST" action="view-details.php">
+                    <button class="submit" name="redirect"> 
+                        Reload
+                    </button>
+                </form>
                 </div>
             <?php
             } else {

@@ -54,6 +54,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     header("location: users/patient/index.php");
                     break;
                 
+                case "DOCTOR": 
+                    header("location: users/doctor/index.php");
+                    break;
+                
                 default: 
                     $_SESSION['error'] = "[403] Access Denied!";
                     header("location: login.php");
@@ -72,5 +76,3 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         exit;
     }
 }
-
-?>
