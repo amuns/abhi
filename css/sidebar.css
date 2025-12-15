@@ -1,86 +1,155 @@
-body {
-  margin: 0;
+:root {
+  --sidebar-bg: #fff;
+  --sidebar-accent: #2663a7;
+  --sidebar-icon: #2663a7;
+  --sidebar-text: #1a2233;
+  --sidebar-hover: #e8f0fe;
+  --sidebar-selected: #e2e9f7;
 }
 
 .sidebar-wrapper {
-  width: 15%;
-  max-width: 15%;
-  background: #2663a7;
-  border-radius: 0px 20px 20px 0px;
-  height: 100vh;
   position: fixed;
-  text-align: center;
-  z-index: 10;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 245px;
+  z-index: 100;
+  background: var(--sidebar-bg);
+  border-right: 1.5px solid #e5e7eb;
+  box-shadow: 2px 0 12px 0 rgba(39,57,89,.07);
+  display: flex;
+  flex-direction: column;
+  transition: width 0.23s cubic-bezier(.4,0,.2,1),padding 0.18s cubic-bezier(.4,0,.2,1);
 }
-
-a {
-  color: white;
-  text-decoration: none;
-}
-
-a img {
-  vertical-align: bottom;
-}
-
-a sup {
-  font-size: 15px;
-  padding: 0 0 0 0.75rem;
-}
-
-a:hover {
-  background-color: #214b7a;
-}
-
-a:active {
-  transform: scale(0.95);
-  transition: all ease-in-out 0.23s;
+.sidebar-wrapper.collapsed {
+  width: 68px;
+  min-width: 0!important;
 }
 
 .dashboard-logo {
-  height: 65px;
-  padding: 5rem 0 0 5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1.5rem 0.8rem 0.5rem 1.6rem;
+  min-height: 62px;
 }
-
-.dashboard-logo img {
-  position: absolute;
-  left: 4rem;
-  top: 5.6rem;
+.sidebar-wrapper.collapsed .dashboard-logo h2 {
+  display: none;
 }
-
+.sidebar-wrapper .dashboard-logo i {
+  margin-right: 3px;
+}
 .dashboard-logo h2 {
-  color: white;
-  font-weight: 800;
-  font-size: 24px;
-  line-height: 26px;
-  letter-spacing: 0.05em;
+  color: var(--sidebar-accent);
+  font-weight: 900;
+  font-size: 1.35rem;
+  letter-spacing: 0.03em;
 }
-
+.sidebar-toggle {
+  background: transparent;
+  border: none;
+  font-size: 2rem;
+  color: var(--sidebar-icon);
+  margin-left: auto;
+  margin-right: 0;
+  margin-top: 0.1rem;
+  margin-bottom: 0.7rem;
+  cursor: pointer;
+  display: block;
+}
+.sidebar-wrapper.collapsed .sidebar-toggle {
+  margin: 1rem auto 0.7rem auto;
+}
 .dashboard-cta {
+  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 78%;
+  padding-bottom: 1rem;
 }
-
 .links {
-  text-align: left;
-  padding: 3rem 0 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  margin-top: 1rem;
 }
-
 .links a {
-  padding: 0.5rem 0;
-  display: inline-block;
-  max-width: 100%;
-  width: 100%;
-  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  padding: 0.68rem 1.2rem 0.68rem 1.6rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--sidebar-text);
+  border-radius: 0.8rem;
+  gap: 1.12rem;
+  min-height: 44px;
+  margin-right: 8px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.16s;
 }
-
-.links a img {
-  padding-left: 4rem;
+.sidebar-wrapper.collapsed .links a span {
+  display: none;
 }
-
+.links a i {
+  font-size: 1.32rem;
+  color: var(--sidebar-icon);
+  flex-shrink: 0;
+  min-width: 1.65rem;
+  text-align: center;
+}
+.links a:hover, .links a.active {
+  background: var(--sidebar-hover);
+  color: var(--sidebar-accent);
+}
 .logout {
-  height: 30px;
-  background-color: transparent;
-  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  font-size: 0.99rem;
+  font-weight: 500;
+  color: #b83535;
+  padding: 0.75rem 1.6rem;
+  margin: 0.7rem 0 0.3rem 0.8rem;
+  border-radius: 0.8rem;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  gap: 1.12rem;
+  min-height: 44px;
+  transition: background 0.16s, color 0.14s;
+}
+.logout i {
+  font-size: 1.28rem;
+  color: #c03c24;
+  min-width: 1.5rem;
+  text-align: center;
+}
+.logout:hover {
+  background: #fde8e8;
+  color: #c03c24;
+}
+.sidebar-wrapper.collapsed .logout span {
+  display: none;
+}
+@media (max-width: 870px) {
+  .sidebar-wrapper {
+    width: 64px;
+    min-width: 0;
+  }
+  .sidebar-wrapper .dashboard-logo h2, .sidebar-wrapper .links a span, .sidebar-wrapper .logout span {
+    display: none;
+  }
+  .sidebar-wrapper {
+    padding-right: 0.3rem;
+  }
+}
+@media (max-width: 640px) {
+  .sidebar-wrapper {
+    left: -100%;
+    position: fixed;
+    z-index: 1510;
+    transition: left 0.24s cubic-bezier(.4,0,.2,1);
+  }
+  .sidebar-wrapper.open {
+    left: 0;
+  }
 }
