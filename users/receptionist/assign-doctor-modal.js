@@ -61,9 +61,9 @@ function selectDoctor(doctorId, doctorName) {
     .then(data => {
       if (data.success) {
         // Update UI
-        document.querySelector(`.assign-doctor-group[data-patient-id='${patientId}'] .assigned-doctor`).textContent = doctorName;
-        document.querySelector(`.assign-doctor-group[data-patient-id='${patientId}'] .doctor-label`).textContent = doctorName;
+        document.querySelector(`.assign-doctor-group[data-patient-id='${patientId}'] .assigned-doctor`).textContent = `Assigned Doctor: ${doctorName}`;
         document.querySelector(`.assign-doctor-group[data-patient-id='${patientId}'] .assigned-doctor`).style.display = 'inline';
+        document.querySelector(`.assign-doctor-group[data-patient-id='${patientId}'] .doctor-label`).style.display = 'none';
         closeModal();
       } else {
         alert('Assignment failed.');
