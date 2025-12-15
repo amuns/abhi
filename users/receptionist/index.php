@@ -69,30 +69,10 @@ if(isset($_POST, $_POST['doctor_id'], $_POST['patient_id'])){
                         <div style="width: 15rem;"><?=$patient['fname']?></div>
                         <div style="width: 18rem;"><?=$patient['address']??'-'?></div>
                         <div style="width: 10rem;"><?=$patient['phone']??'-'?></div>
-                        <div class="dropdown">
-                            Assign Doctor
-                            <div class="dropdown-content">
-                                <?php
-                                $stmt1 = $conn->query("SELECT id, name FROM users WHERE role='DOCTOR'");
-                                $stmt1->execute(); 
-                                $doctors = $stmt1->fetchAll();
-                                if($stmt1->rowCount() > 0){
-                                    foreach($doctors as $doc){
-                                ?>
-                                <form action="index.php" class="dropdown-form" method="POST">
-                                    <input type='hidden' name="patient_id" value="<?=$patient['id']?>">
-                                    <input type='hidden' name="doctor_id" value="<?=$doc['id']?>">
-                                    <button type="submit"><?=$doc['name']?></button>
-                                </form>
-                                <?php
-                                    }
-                                }
-                                else{
-                                    echo "No Doctors Available!";
-                                }
-                                ?>
-                            </div>
-                        </div>
+                        <div class="assign-doctor-group" data-patient-id="<?=$patient['id']?>">
+  <button type="button" class="btn secondary assign-doctor-btn"><i class="ri-user-add-line"></i> <span class="doctor-label">Assign Doctor</span></button>
+  <span class="assigned-doctor" style="display:none;"></span>
+</div>
                     </div>
                     <?php
                         }
@@ -109,4 +89,5 @@ if(isset($_POST, $_POST['doctor_id'], $_POST['patient_id'])){
     <div>
 </body>
 
+<script src="assign-doctor-modal.js"></script>
 </html>
