@@ -2,29 +2,56 @@
   --background-color: #faf9ff;
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  color: #111827;
+  background-color: #f3f4f6;
+}
+
 .container {
   display: flex;
+  min-height: 100vh;
+  background: radial-gradient(circle at top left, #e5f3ff, #f9fafb);
 }
 
 button {
+  /* keep existing button colors exactly as-is */
   background-color: #2663a7;
   width: 320px;
   height: 62px;
   color: white;
   font-weight: 900;
   font-size: 18px;
+  border: none;
+  border-radius: 9999px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  box-shadow: 0 14px 30px rgba(15, 23, 42, 0.25);
+  transition: transform 150ms ease, box-shadow 150ms ease,
+    background-color 150ms ease, color 150ms ease;
 }
 
 button:hover {
+  /* keep existing button colors exactly as-is */
   background-color: #214b7a;
-  border-radius: 10px;
   color: lightgrey;
   cursor: pointer;
+  box-shadow: 0 18px 38px rgba(15, 23, 42, 0.28);
 }
 
 button:active {
-  transform: scale(0.95);
+  transform: scale(0.97) translateY(1px);
   transition: all 0.23s ease-in-out;
+  box-shadow: 0 10px 22px rgba(15, 23, 42, 0.22);
 }
 
 .add-button {
@@ -40,39 +67,55 @@ button:active {
 .search-bar {
   display: flex;
   justify-content: center;
+  gap: 0.75rem;
   margin: -4rem 0 3rem 0;
 }
 
 .search-bar input {
-  height: 32px;
-  border-radius: 10px;
-  border: 1px solid lightgrey;
-  padding: 1rem;
+  height: 40px;
+  border-radius: 9999px;
+  border: 1px solid #e5e7eb;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  background-color: #f9fafb;
+  color: #111827;
+  min-width: 220px;
+  max-width: 320px;
+  transition: border-color 150ms ease, box-shadow 150ms ease,
+    background-color 150ms ease;
 }
 
 .search-bar input:focus{
-  outline: 1px solid #9cb4ce;
-  border: none;
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.15);
+  background-color: #ffffff;
 }
 
 .search-button {
-  width: 38px !important;
-  height: 32px;
-  position: relative;
-  top: 5px;
-  background-color: #dbdbdb;
+  width: 40px !important;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #e5e7eb;
   border: none;
-  border-radius: 6px;
+  border-radius: 9999px;
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.18);
 }
 
 .search-button:hover {
-  background-color: var(--background-color);
+  background-color: #d1d5db;
 }
 
 .search-role {
-  height: 30px;
-  border-radius: 6px;
-  background-color: white;
+  height: 40px;
+  border-radius: 9999px;
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  padding: 0 1.25rem;
+  font-size: 0.9rem;
+  color: #111827;
 }
 
 .display-block-center {
@@ -125,35 +168,49 @@ button:active {
 
 .patient-form {
   display: flex;
-  width: 70%;
-  height: 600px;
-  background-color: white;
-  color: #a3a0a1;
-  margin: 0 auto;
+  width: 80%;
+  max-width: 1040px;
+  min-height: 520px;
+  background-color: #ffffff;
+  color: #4b5563;
+  margin: 2.5rem auto;
   justify-content: center;
-  padding-top: 4rem;
+  padding: 3rem 3rem 2.5rem;
+  border-radius: 1.25rem;
+  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.14);
 }
 
-.patient-form form input, textarea {
+.patient-form form input,
+.patient-form form textarea {
   margin-bottom: 2rem;
 }
 
 .patient-form form input {
   display: block;
   margin: 1rem auto;
-  width: 459px;
-  height: 50px;
+  width: 100%;
+  max-width: 540px;
+  min-height: 46px;
   font-weight: 500;
-  font-size: 16px;
-  border-radius: 6px;
-  border: 2px solid #f4f4f5;
-  padding-left: 1rem;
-  color: #a3a0a1;
+  font-size: 0.95rem;
+  border-radius: 0.75rem;
+  border: 1px solid #e5e7eb;
+  padding: 0.7rem 1rem;
+  color: #111827;
+  background-color: #f9fafb;
+  transition: border-color 150ms ease, box-shadow 150ms ease,
+    background-color 150ms ease;
+}
+
+.patient-form form input::placeholder {
+  color: #9ca3af;
 }
 
 .patient-form form input:focus {
-  outline: 2px solid #9cb4ce;
-  border: none;
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.15);
+  background-color: #ffffff;
 }
 
 .patient-form form button {
@@ -174,62 +231,106 @@ button:active {
 
 .details {
   position: fixed;
-  top: 18rem;
-  left: 32rem;
+  top: 19rem;
+  left: 38rem;
+}
+
+@media only screen and (max-width: 420px) {
+  .view-section {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .sidebar-wrapper {
+    height: 136vh !important;
+  }
+
+  .dashboard-logo img{
+    left: 1.2rem;
+  }
+
+  .links a img {
+    padding-left: 2rem;
+  }
+
+  .dashboard-cta .links a sup, .dashboard-cta a sup, .dashboard-logo h2 {
+    display: none;
+  }
+
+  .patient-details div .details {
+    left: 22rem;
+  }
 }
 
 /* Receptionist */
 
 .register-details {
-  padding-top: 1rem;
-  width: 547px;
-  height: 745px;
+  padding: 2.5rem 2.25rem 2.75rem;
+  width: 100%;
+  max-width: 640px;
+  min-height: 640px;
   background: #ffffff;
-  border-radius: 20px;
-  margin: 0 auto;
+  border-radius: 1.25rem;
+  margin: 3rem auto;
+  box-shadow: 0 20px 38px rgba(15, 23, 42, 0.14);
 }
 
 .register-details h3 {
   font-weight: 700;
-  font-size: 26px;
-  line-height: 39px;
+  font-size: 1.4rem;
+  line-height: 1.8rem;
   text-align: center;
+  margin: 0 0 1.5rem;
 }
 
 .register-details form input {
   display: block;
   margin: 1rem auto;
-  width: 459px;
-  height: 50px;
+  width: 100%;
+  max-width: 540px;
+  min-height: 46px;
   font-weight: 500;
-  font-size: 16px;
-  border-radius: 6px;
-  border: 2px solid #f4f4f5;
-  padding-left: 1rem;
-  color: #a3a0a1;
+  font-size: 0.95rem;
+  border-radius: 0.75rem;
+  border: 1px solid #e5e7eb;
+  padding: 0.7rem 1rem;
+  color: #111827;
+  background-color: #f9fafb;
+  transition: border-color 150ms ease, box-shadow 150ms ease,
+    background-color 150ms ease;
+}
+
+.register-details form input::placeholder {
+  color: #9ca3af;
 }
 
 .register-details form input:focus {
-  outline: 2px solid #9cb4ce;
-  border: none;
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.15);
+  background-color: #ffffff;
 }
 
 .two-columns {
   display: flex;
   justify-content: space-between;
-  width: 459px;
-  height: 50px;
+  width: 100%;
+  max-width: 540px;
+  min-height: 46px;
   align-items: center;
   margin: 1rem auto;
   gap: 20px;
 }
 
 .two-columns select {
-  height: 50px;
-  border-radius: 6px;
+  flex: 1;
+  min-height: 46px;
+  border-radius: 0.75rem;
   background-color: white;
-  width: 135px;
-  padding: 0 2rem 0 2rem;
+  border: 1px solid #e5e7eb;
+  padding: 0.7rem 0.9rem;
+  font-size: 0.9rem;
+  color: #111827;
+  transition: border-color 150ms ease, box-shadow 150ms ease;
 }
 
 .image-upload {
@@ -238,34 +339,37 @@ button:active {
   margin: 0 2.6rem !important;
 }
 
-.image-upload::-webkit-file-upload-button {
+/* .image-upload::-webkit-file-upload-button {
   visibility: hidden;
 }
 
 .image-upload::before {
   content: "Add Photo (Optional) +";
   cursor: pointer;
-}
+} */
 
 .fingerprint-registering {
   background-color: white;
   text-align: center;
-  padding: 2rem;
-  border-radius: 10px;
-  width: 450px;
+  padding: 2rem 2.5rem;
+  border-radius: 1.25rem;
+  width: 100%;
+  max-width: 520px;
   margin: 3rem auto;
-  color: #a3a0a1;
-  height: 500px;
-  box-shadow: 2px 1px 10px 1px rgba(0, 0, 0, 0.1);
+  color: #4b5563;
+  min-height: 420px;
+  box-shadow: 0 18px 36px rgba(15, 23, 42, 0.16);
 }
 
 .list-wrapper {
-  width: 1044px;
-  height: 492px;
+  width: 100%;
+  max-width: 1044px;
+  min-height: 420px;
   background-color: white;
-  border-radius: 10px;
-  margin: 6rem auto;
+  border-radius: 1.25rem;
+  margin: 4rem auto;
   overflow: hidden;
+  box-shadow: 0 18px 36px rgba(15, 23, 42, 0.16);
 }
 
 .list {
@@ -309,38 +413,85 @@ button:active {
 /* Admin */
 .add-user {
   background-color: white;
-  width: 40%;
-  height: 70%;
-  border-radius: 10px;
-  padding: 2rem;
+  width: 100%;
+  max-width: 640px;
+  min-height: 420px;
+  border-radius: 1.25rem;
+  padding: 2.5rem 2.25rem 2.75rem;
   margin: 3rem auto;
   display: flex;
   justify-content: center;
-  box-shadow: 2px 1px 10px 1px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 18px 36px rgba(15, 23, 42, 0.16);
 }
 
 .add-user form input {
   display: block;
   margin: 1rem auto;
-  width: 459px;
-  height: 50px;
+  width: 100%;
+  max-width: 540px;
+  min-height: 46px;
   font-weight: 500;
-  font-size: 16px;
-  border-radius: 6px;
-  border: 2px solid #f4f4f5;
-  padding-left: 1rem;
-  color: #a3a0a1;
+  font-size: 0.95rem;
+  border-radius: 0.75rem;
+  border: 1px solid #e5e7eb;
+  padding: 0.7rem 1rem;
+  color: #111827;
+  background-color: #f9fafb;
+  transition: border-color 150ms ease, box-shadow 150ms ease,
+    background-color 150ms ease;
+}
+
+.add-user form input::placeholder {
+  color: #9ca3af;
+}
+
+.add-user form input:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.15);
+  background-color: #ffffff;
 }
 
 .add-user select {
-  height: 50px;
-  border-radius: 6px;
+  height: 46px;
+  border-radius: 0.75rem;
   background-color: white;
   width: 180px;
-  padding: 0 2rem 0 2rem;
+  padding: 0 1.25rem;
+  border: 1px solid #e5e7eb;
+  font-size: 0.9rem;
+  color: #111827;
+  transition: border-color 150ms ease, box-shadow 150ms ease;
 }
 
 .add-user .add-button {
   width: 100%;
   height: 10%;
+}
+
+@media (max-width: 1024px) {
+  .patient-form,
+  .register-details,
+  .add-user,
+  .list-wrapper {
+    width: 90%;
+  }
+}
+
+@media (max-width: 768px) {
+  .patient-form {
+    padding: 2rem 1.5rem;
+    width: 94%;
+  }
+
+  .register-details,
+  .add-user {
+    padding: 2rem 1.5rem 2.25rem;
+    width: 94%;
+  }
+
+  .two-columns {
+    flex-direction: column;
+    align-items: stretch;
+  }
 }

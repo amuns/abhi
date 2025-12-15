@@ -18,12 +18,15 @@ if (isset($_POST, $_POST['search'])) {
 if(isset($_POST, $_POST['doctor_id'], $_POST['patient_id'])){
     $doctorId = $_POST['doctor_id'];
     $patientId = $_POST['patient_id'];
-    $stmt = $conn->prepare("INSERT into appointments(user_id, patient_id, status)");
+    $stmt = $conn->prepare("INSERT into appointments(user_id, patient_id, status) VALUES(:user_id, :patient_id, :status)");
     $stmt->execute([
         'user_id' => $doctorId,
         'patient_id' => $patientId, 
         'status' => 'pending'
     ]);
+    $_SESSION['success'] = "Doctor assigned";
+    header("location: index.php");
+    exit;
 }
 ?>
 
@@ -47,6 +50,7 @@ if(isset($_POST, $_POST['doctor_id'], $_POST['patient_id'])){
             <h3>Patient List</h3>
             <div class="list-wrapper">
                 <?php
+                flashMessages();
                 $stmt = $conn->query($sql);
                 $stmt->execute();
                 $patientDetails = $stmt->fetchAll();
