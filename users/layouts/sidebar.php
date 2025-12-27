@@ -6,10 +6,10 @@ function displaySidebar($links){
     <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle Sidebar">
       <i class="ri-menu-line"></i>
     </button>
-    <span class="sidebar-brand">
+    <div class="sidebar-brand">
       <img src="../img/dashboad-logo.png" alt="Logo" class="sidebar-logo">
       <span class="sidebar-logo-text">FBMD</span>
-    </span>
+    </div>
   </div>
   <div class="sidebar-section">
     <div class="sidebar-links-nav">
@@ -44,6 +44,7 @@ const sidebar = document.getElementById('sidebar');
 const toggleBtn = document.getElementById('sidebarToggle');
 toggleBtn.addEventListener('click', () => {
   sidebar.classList.toggle('collapsed');
+  document.body.classList.toggle('sidebar-collapsed');
 });
 </script>
 

@@ -1,6 +1,9 @@
 .dashboard-wrapper {
-  width: 85%;
-  margin: 0 0 0 auto;
+  margin-left: 240px;
+  padding-left: 24px; /* 24px gap between sidebar and content */
+  width: calc(100% - 240px - 24px);
+  min-height: 100vh;
+  transition: margin-left 0.25s cubic-bezier(.4,0,.2,1), width 0.25s cubic-bezier(.4,0,.2,1), padding-left 0.25s cubic-bezier(.4,0,.2,1);
 }
 
 .dashboard-wrapper .header-section {
@@ -11,7 +14,7 @@
 
 .body-section {
   background-color: #faf9ff;
-  padding: 3rem;
+  padding: 3rem; /* p-12 */
   height: 78vh;
 }
 
@@ -25,5 +28,28 @@
 
 .profile {
   text-align: right;
-  padding: 2rem 2rem 0 0;
+  padding: 2rem 2rem 0 0; /* py-8 px-8 pt-0 */
+}
+
+/* When sidebar is collapsed */
+body.sidebar-collapsed .dashboard-wrapper {
+  margin-left: 64px;
+  padding-left: 24px;
+  width: calc(100% - 64px - 24px);
+}
+
+@media (max-width: 900px) {
+  .dashboard-wrapper {
+    margin-left: 64px;
+    padding-left: 24px;
+    width: calc(100% - 64px - 24px);
+  }
+}
+
+@media (max-width: 640px) {
+  .dashboard-wrapper {
+    margin-left: 0;
+    padding-left: 16px; /* p-4 */
+    width: calc(100% - 16px);
+  }
 }

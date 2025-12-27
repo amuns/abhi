@@ -7,34 +7,24 @@
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
 
-#define SCREEN_WIDTH 128 // OLED display width, in pixels
-#define SCREEN_HEIGHT 64 // OLED display height, in pixels
 
-// Declaration for an SSD1306 display connected to I2C (SDA, SCL pins)
-#define OLED_RESET     -1 // Reset pin # (or -1 if sharing Arduino reset pin)
+
+// 1. Define OLED Settings
+#define SCREEN_WIDTH 128 
+#define SCREEN_HEIGHT 64 
+#define OLED_RESET    -1 
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
-#if (defined(__AVR__) || defined(ESP8266)) && !defined(__AVR_ATmega2560__)
-// For UNO and others without hardware serial, we must use software serial...
-// pin #2 is IN from sensor (GREEN wire)
-// pin #3 is OUT from arduino  (WHITE wire)
-// Set up the serial port to use softwareserial..
-SoftwareSerial mySerial(2, 3);
-
-#else
-// On Leonardo/M0/etc, others with hardware serial, use hardware serial!
-// #0 is green wire, #1 is white
-#define mySerial Serial1
-  
-#endif
-const char* ssid = "prasaiwifi2g";
+// 2. Define Fingerprint Settings
+// We use HardwareSerial 2. 
+HardwareSerial serialPort(2); 
+Adafruit_Fingerprint finger = Adafruit_Fingerprint(&serialPort);
+const char* ssid = "abn184944_2.4";
 const char* password = "Abn823331@";
 WiFiClient client;
 String id;
 int status1;
-HardwareSerial serialPort(2); // use UART2
 
-Adafruit_Fingerprint finger = Adafruit_Fingerprint(&serialPort);
 uint8_t getFingerprintEnroll();
 
 String request;
@@ -1378,6 +1368,35 @@ static const unsigned char database_error_text [] PROGMEM = {
 
 void setup() {
   Serial.begin(57600);
+  Wire.begin(21, 22);
+  
+  if(!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {
+    Serial.println(F("SSD1306 allocation failed"));
+    for(;;);
+  }
+
+  // Test display
+  display.clearDisplay();
+  
+  // Draw a simple pattern
+  display.drawRect(0, 0, display.width(), display.height(), WHITE);
+  display.setCursor(10, 28);
+  display.setTextSize(2);
+  display.setTextColor(WHITE);
+  display.println("TEST OK");
+  display.display();
+  
+  delay(5000);
+
+  // 4. Initialize Fingerprint Sensor
+  // IMPORTANT: begin(baud, config, RX_PIN, TX_PIN)
+  // We map Serial2 to RX=16, TX=17
+  serialPort.begin(57600, SERIAL_8N1, 16, 17); 
+  
+  delay(100);
+
+
+  Serial.begin(57600);
  // SSD1306_SWITCHCAPVCC = generate display voltage from 3.3V internally
   if(!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) { // Address 0x3D for 128x64
     Serial.println(F("SSD1306 allocation failed"));
@@ -1524,7 +1543,7 @@ void loop() {
   
   String device_status;
   HTTPClient wttp;
-  request = "http://192.168.101.3/abhi/users/receptionist/status.php";
+  request = "http://192.168.1.121/abhi/users/receptionist/status.php";
   Serial.println(request);
   wttp.begin(request);
   int httpResponseCode = wttp.GET();
@@ -1552,7 +1571,7 @@ void loop() {
       
       Serial.println("Please type in the ID # (from 1 to 127) you want to save this finger as...");
       HTTPClient http;
-      request = "http://192.168.101.3/abhi/users/receptionist/id.php";
+      request = "http://192.168.1.121/abhi/users/receptionist/id.php";
       Serial.println(request);
       http.begin(request);
       int httpResponseCode = http.GET();
@@ -1819,7 +1838,7 @@ uint8_t getFingerprintEnroll() {
   {
     Serial.println("Prints matched!");
     HTTPClient http;
-    request = "http://192.168.101.3/abhi/users/receptionist/registerFingerprint.php?fid=" + String(id);
+    request = "http://192.168.1.121/abhi/users/receptionist/registerFingerprint.php?fid=" + String(id);
 
     Serial.println(request);
     http.begin(request);
@@ -2021,7 +2040,7 @@ uint8_t getFingerprintID() {
   Serial.print("Found ID #"); Serial.print(finger.fingerID);
   Serial.print(" with confidence of "); Serial.println(finger.confidence);
   HTTPClient http;
-  request = "http://192.168.101.3/abhi/users/firstResponder/retrieve-fingerprint.php?fid=" + String(finger.fingerID);
+  request = "http://192.168.1.121/abhi/users/firstResponder/retrieve-fingerprint.php?fid=" + String(finger.fingerID);
   Serial.println(request);
   http.begin(request);
   int httpResponseCode = http.GET();

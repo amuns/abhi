@@ -19,28 +19,64 @@ body {
 
 .login-wrapper {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.2fr);
   min-height: 100vh;
-}
-
-.login-image {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: radial-gradient(circle at top left, #e5f3ff, #bfdbfe);
-}
-
-.login-image img {
-  max-width: 80%;
-  height: auto;
+  background-color: #f9fafb;
 }
 
 .login-form {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2rem;
+  padding: 2.5rem 2rem;
   position: relative;
+}
+
+.login-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at top left, #6366f1, #2563eb);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-content {
+  max-width: 440px;
+  color: #e5e7eb;
+}
+
+.hero-title {
+  font-size: 1.9rem;
+  line-height: 2.4rem;
+  font-weight: 800;
+  margin: 0 0 0.75rem;
+}
+
+.hero-subtitle {
+  margin: 0 0 1.75rem;
+  font-size: 0.98rem;
+  line-height: 1.6rem;
+  color: #e5e7eb;
+  opacity: 0.9;
+}
+
+.hero-placeholder {
+  border-radius: 1.25rem;
+  background: rgba(15, 23, 42, 0.2);
+  border: 1px dashed rgba(226, 232, 240, 0.7);
+  height: 260px;
+  max-width: 460px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #e5e7eb;
+  font-size: 0.9rem;
+  backdrop-filter: blur(8px);
+}
+
+.hero-placeholder span {
+  opacity: 0.9;
 }
 
 .form {
@@ -81,11 +117,27 @@ body {
   color: #6b7280;
 }
 
+.field-label {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #6b7280;
+  margin-bottom: 0.35rem;
+}
+
+.form-intro {
+  margin: 0 0 1.4rem;
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
 input {
   display: block;
   width: 100%;
   max-width: 360px;
-  margin: 0 0 0.9rem 0;
+  margin: 0 0 1rem 0;
   padding: 0.7rem 0.9rem;
   font-size: 0.95rem;
   line-height: 1.5rem;
@@ -110,8 +162,7 @@ input:focus {
 }
 
 button {
-  /* keep existing colors as requested */
-  background-color: #f4f4f5;
+  background: linear-gradient(90deg, #4f46e5, #2563eb);
   padding: 0.75rem 1rem;
   border: none;
   width: 100%;
@@ -122,7 +173,7 @@ button {
   line-height: 1.5rem;
   border-radius: 9999px;
   display: block;
-  margin: 1.75rem auto 0.25rem;
+  margin: 1.5rem auto 0.25rem;
   letter-spacing: 0.04em;
   text-transform: uppercase;
   transition: transform 150ms ease, box-shadow 150ms ease,
@@ -130,12 +181,11 @@ button {
 }
 
 button:hover {
-  /* keep existing colors as requested */
   border-radius: 9999px;
   cursor: pointer;
-  background-color: #2663a7;
-  color: white;
-  box-shadow: 0 12px 20px rgba(15, 23, 42, 0.25);
+  background: linear-gradient(90deg, #4338ca, #1d4ed8);
+  color: #f9fafb;
+  box-shadow: 0 18px 35px rgba(15, 23, 42, 0.35);
 }
 
 button:active {
@@ -182,27 +232,73 @@ select option {
 }
 
 .forgot-password {
-  display: block;
-  text-align: right;
   font-size: 0.8rem;
-  margin: 0.25rem auto 0;
-  max-width: 360px;
-  color: #6b7280;
+  color: #2563eb;
   text-decoration: none;
 }
 
 .forgot-password:hover {
-  color: #111827;
+  color: #1d4ed8;
   text-decoration: underline;
 }
 
-.hide-eye {
+.password-field {
+  position: relative;
+  max-width: 360px;
+}
+
+.password-field input {
+  padding-right: 2.5rem;
+}
+
+.password-toggle {
   position: absolute;
-  right: 3.2rem;
-  top: 11.35rem;
-  width: 20px;
-  height: 20px;
-  cursor: pointer;
+  right: 0.35rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  border: none;
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  box-shadow: none;
+}
+
+.password-toggle img {
+  width: 18px;
+  height: 18px;
+}
+
+.password-toggle:hover {
+  background-color: rgba(15, 23, 42, 0.03);
+  box-shadow: none;
+}
+
+.form-row-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 360px;
+  margin-top: 0.45rem;
+}
+
+.remember-me {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+  color: #4b5563;
+}
+
+.remember-me input {
+  width: 14px;
+  height: 14px;
+  margin: 0;
 }
 
 @media (max-width: 900px) {
@@ -210,12 +306,12 @@ select option {
     grid-template-columns: 1fr;
   }
 
-  .login-image {
-    display: none;
-  }
-
   .login-form {
     padding: 1.5rem;
+  }
+
+  .login-image {
+    padding: 2rem 1.5rem 2.75rem;
   }
 
   .form {
@@ -226,10 +322,5 @@ select option {
 @media (max-width: 480px) {
   .form {
     padding: 1.75rem 1.5rem 2rem;
-  }
-
-  .hide-eye {
-    right: 2.25rem;
-    top: 10.9rem;
   }
 }
