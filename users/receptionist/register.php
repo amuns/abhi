@@ -29,7 +29,7 @@ if(isset($_POST) && @$_POST['fname']){
         exit;
     }
 
-    if (isset($_FILES['dp'])) { //If block to be commented out if any error occurs
+    /*if (isset($_FILES['dp'])) { //If block to be commented out if any error occurs
         $dir = "../uploads/";
         if (!is_dir($dir)) {
             mkdir($dir, 0777);
@@ -55,7 +55,7 @@ if(isset($_POST) && @$_POST['fname']){
     }
     else{
         $image = "defUser.jpeg";
-    }
+    }*/
     try{
     $stmt1 = $conn->prepare("UPDATE patient_details SET fname='$fname', address='$address', email='$email', phone='$phone', ephone='$ephone', relation='$relation', gender='$gender', dob='$dob', dp='$image' WHERE id=" . $_SESSION['id']);
     $stmt1->execute();
@@ -119,7 +119,7 @@ $emptyData = $stmt->fetch();
                             <option value="others">Others</option>
                         </select>
                         
-                        DOB: <input type="date" name="date" required>
+                        DOB: <input type="date" name="dob" required>
                     </div>
 
                     <input class="image-upload" type="file" name="dp" required>
